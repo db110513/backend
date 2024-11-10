@@ -1,1 +1,1 @@
-Directori que conté arxius sql d'una BD.
+Directori que conté directoris on hi ha codi sql d'una BD.
