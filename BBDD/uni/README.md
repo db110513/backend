@@ -1,5 +1,5 @@
 ```
-CREATE SCHEMA uni_dbg;
+CREATE SCHEMA uni;
 
 CREATE TABLE UNI_DBG.Graus (
     grau_id SERIAL PRIMARY KEY,
