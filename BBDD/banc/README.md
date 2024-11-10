@@ -47,4 +47,3 @@ CREATE TABLE banc.Pagaments (
     establiment VARCHAR(100),
     FOREIGN KEY (targeta_id) REFERENCES banc.Targetes(targeta_id)
 );
-
