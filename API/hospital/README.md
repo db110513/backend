@@ -58,84 +58,124 @@ module.exports = mongoose.model('Cita', citaSchema);
 ```
 
 rutes/rutesHospital.js
-```
-const express = require('express');
+```const express = require('express');
+const router = express.Router();
+
 const Pacient = require('../models/Pacient');
 const Metge = require('../models/Metge');
 const Cita = require('../models/Cita');
-const router = express.Router();
 
-/// RUTES PER A PACIENTS ///
-
-// Crear un pacient
+/// RUTES PER PACIENTS ///
 router.post('/pacient', async (req, res) => {
   try {
     const pacient = new Pacient(req.body);
     await pacient.save();
     res.status(201).send(pacient);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(400).send(error);
   }
 });
 
-// Obtenir tots els pacients
 router.get('/pacients', async (req, res) => {
   try {
     const pacients = await Pacient.find();
     res.send(pacients);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(500).send(error);
   }
 });
 
-// Obtenir un pacient per ID
 router.get('/pacient/:id', async (req, res) => {
   try {
     const pacient = await Pacient.findById(req.params.id);
     if (!pacient) return res.status(404).send('Pacient no trobat');
     res.send(pacient);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(500).send(error);
   }
 });
 
-/// RUTES PER A METGES ///
+router.put('/pacient/:id', async (req, res) => {
+  try {
+    const pacient = await Pacient.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!pacient) return res.status(404).send('Pacient no trobat');
+    res.send(pacient);
+  } 
+  catch (error) {
+    res.status(400).send(error);
+  }
+});
 
-// Crear un metge
+router.delete('/pacient/:id', async (req, res) => {
+  try {
+    const pacient = await Pacient.findByIdAndDelete(req.params.id);
+    if (!pacient) return res.status(404).send('Pacient no trobat');
+    res.send({ message: 'Pacient eliminat correctament' });
+  } 
+  catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/// RUTES PER METGES ///
 router.post('/metge', async (req, res) => {
   try {
     const metge = new Metge(req.body);
     await metge.save();
     res.status(201).send(metge);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(400).send(error);
   }
 });
 
-// Obtenir tots els metges
 router.get('/metges', async (req, res) => {
   try {
     const metges = await Metge.find();
     res.send(metges);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(500).send(error);
   }
 });
 
-// Obtenir un metge per ID
 router.get('/metge/:id', async (req, res) => {
   try {
     const metge = await Metge.findById(req.params.id);
     if (!metge) return res.status(404).send('Metge no trobat');
     res.send(metge);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(500).send(error);
   }
 });
 
-/// RUTES PER A CITES ///
+router.put('/metge/:id', async (req, res) => {
+  try {
+    const metge = await Metge.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!metge) return res.status(404).send('Metge no trobat');
+    res.send(metge);
+  } 
+  catch (error) {
+    res.status(400).send(error);
+  }
+});
 
-// Crear una cita
+router.delete('/metge/:id', async (req, res) => {
+  try {
+    const metge = await Metge.findByIdAndDelete(req.params.id);
+    if (!metge) return res.status(404).send('Metge no trobat');
+    res.send({ message: 'Metge eliminat correctament' });
+  } 
+  catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/// RUTES PER CITES ///
 router.post('/cita', async (req, res) => {
   try {
     const cita = new Cita({
@@ -146,33 +186,57 @@ router.post('/cita', async (req, res) => {
     });
     await cita.save();
     res.status(201).send(cita);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(400).send(error);
   }
 });
 
-// Obtenir totes les cites amb informació del pacient i del metge
 router.get('/cites', async (req, res) => {
   try {
     const cites = await Cita.find().populate('pacient').populate('metge');
     res.send(cites);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(500).send(error);
   }
 });
 
-// Obtenir una cita per ID
 router.get('/cita/:id', async (req, res) => {
   try {
     const cita = await Cita.findById(req.params.id).populate('pacient').populate('metge');
     if (!cita) return res.status(404).send('Cita no trobada');
     res.send(cita);
-  } catch (error) {
+  } 
+  catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.put('/cita/:id', async (req, res) => {
+  try {
+    const cita = await Cita.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('pacient').populate('metge');
+    if (!cita) return res.status(404).send('Cita no trobada');
+    res.send(cita);
+  } 
+  catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.delete('/cita/:id', async (req, res) => {
+  try {
+    const cita = await Cita.findByIdAndDelete(req.params.id);
+    if (!cita) return res.status(404).send('Cita no trobada');
+    res.send({ message: 'Cita eliminada correctament' });
+  } 
+  catch (error) {
     res.status(500).send(error);
   }
 });
 
 module.exports = router;
+
 ```
 
 
