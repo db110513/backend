@@ -1,4 +1,5 @@
-<strong style="color: red;">HOSPITAL</strong>
+🔴 **HOSPITAL**
+
 
 
 ```
