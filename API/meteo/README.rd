@@ -1,4 +1,6 @@
-Projecte backend que consumeix una API existent anomenada weather (https://www.weatherapi.com/).
+# Meteo
+
+App que conseumeix l'API externa anomenada weather (https://www.weatherapi.com/).
 
 Codi compilat:
 
