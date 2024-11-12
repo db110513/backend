@@ -1,6 +1,6 @@
 # Meteo
 
-App que conseumeix l'API externa anomenada weather (https://www.weatherapi.com/).
+App que conseumeix l'API externa weather (https://www.weatherapi.com/).
 
 Codi compilat:
 
