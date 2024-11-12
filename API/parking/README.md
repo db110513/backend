@@ -1,4 +1,4 @@
-# Parkinng
+# Parking
 
 Codi compilat:
 
