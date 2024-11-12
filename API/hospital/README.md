@@ -58,7 +58,9 @@ module.exports = mongoose.model('Cita', citaSchema);
 ```
 
 rutes/rutesHospital.js
-```const express = require('express');
+
+```
+const express = require('express');
 const router = express.Router();
 
 const Pacient = require('../models/Pacient');
@@ -66,8 +68,11 @@ const Metge = require('../models/Metge');
 const Cita = require('../models/Cita');
 
 /// RUTES PER PACIENTS ///
-router.post('/pacient', async (req, res) => {
+router.post('/nouPacient', async (req, res) => {
   try {
+    const pacientExist = await Pacient.findOne({ dni: req.body.dni });
+    if (pacientExist) return res.status(400).send({ error: 'El pacient ja existeix amb aquest DNI.' });
+    
     const pacient = new Pacient(req.body);
     await pacient.save();
     res.status(201).send(pacient);
@@ -77,19 +82,9 @@ router.post('/pacient', async (req, res) => {
   }
 });
 
-router.get('/pacients', async (req, res) => {
+router.get('/pacient/:dni', async (req, res) => {
   try {
-    const pacients = await Pacient.find();
-    res.send(pacients);
-  } 
-  catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-router.get('/pacient/:id', async (req, res) => {
-  try {
-    const pacient = await Pacient.findById(req.params.id);
+    const pacient = await Pacient.findOne({ dni: req.params.dni });
     if (!pacient) return res.status(404).send('Pacient no trobat');
     res.send(pacient);
   } 
@@ -98,9 +93,9 @@ router.get('/pacient/:id', async (req, res) => {
   }
 });
 
-router.put('/pacient/:id', async (req, res) => {
+router.put('/pacient/:dni', async (req, res) => {
   try {
-    const pacient = await Pacient.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const pacient = await Pacient.findOneAndUpdate({ dni: req.params.dni }, req.body, { new: true });
     if (!pacient) return res.status(404).send('Pacient no trobat');
     res.send(pacient);
   } 
@@ -109,11 +104,11 @@ router.put('/pacient/:id', async (req, res) => {
   }
 });
 
-router.delete('/pacient/:id', async (req, res) => {
+router.delete('/pacient/:dni', async (req, res) => {
   try {
-    const pacient = await Pacient.findByIdAndDelete(req.params.id);
+    const pacient = await Pacient.findOneAndDelete({ dni: req.params.dni });
     if (!pacient) return res.status(404).send('Pacient no trobat');
-    res.send({ message: 'Pacient eliminat correctament' });
+    res.send({ message: 'Pacient esborrat' });
   } 
   catch (error) {
     res.status(500).send(error);
@@ -121,8 +116,11 @@ router.delete('/pacient/:id', async (req, res) => {
 });
 
 /// RUTES PER METGES ///
-router.post('/metge', async (req, res) => {
+router.post('/nouMetge', async (req, res) => {
   try {
+    const metgeExist = await Metge.findOne({ dni: req.body.dni });
+    if (metgeExist) return res.status(400).send({ error: 'El metge ja existeix amb aquest DNI.' });
+
     const metge = new Metge(req.body);
     await metge.save();
     res.status(201).send(metge);
@@ -132,19 +130,9 @@ router.post('/metge', async (req, res) => {
   }
 });
 
-router.get('/metges', async (req, res) => {
+router.get('/metge/:dni', async (req, res) => {
   try {
-    const metges = await Metge.find();
-    res.send(metges);
-  } 
-  catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-router.get('/metge/:id', async (req, res) => {
-  try {
-    const metge = await Metge.findById(req.params.id);
+    const metge = await Metge.findOne({ dni: req.params.dni });
     if (!metge) return res.status(404).send('Metge no trobat');
     res.send(metge);
   } 
@@ -153,9 +141,9 @@ router.get('/metge/:id', async (req, res) => {
   }
 });
 
-router.put('/metge/:id', async (req, res) => {
+router.put('/metge/:dni', async (req, res) => {
   try {
-    const metge = await Metge.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const metge = await Metge.findOneAndUpdate({ dni: req.params.dni }, req.body, { new: true });
     if (!metge) return res.status(404).send('Metge no trobat');
     res.send(metge);
   } 
@@ -164,11 +152,11 @@ router.put('/metge/:id', async (req, res) => {
   }
 });
 
-router.delete('/metge/:id', async (req, res) => {
+router.delete('/metge/:dni', async (req, res) => {
   try {
-    const metge = await Metge.findByIdAndDelete(req.params.id);
+    const metge = await Metge.findOneAndDelete({ dni: req.params.dni });
     if (!metge) return res.status(404).send('Metge no trobat');
-    res.send({ message: 'Metge eliminat correctament' });
+    res.send({ message: 'Metge esborrat' });
   } 
   catch (error) {
     res.status(500).send(error);
@@ -176,7 +164,7 @@ router.delete('/metge/:id', async (req, res) => {
 });
 
 /// RUTES PER CITES ///
-router.post('/cita', async (req, res) => {
+router.post('/novaCita', async (req, res) => {
   try {
     const cita = new Cita({
       pacient: req.body.pacient,
@@ -228,7 +216,7 @@ router.delete('/cita/:id', async (req, res) => {
   try {
     const cita = await Cita.findByIdAndDelete(req.params.id);
     if (!cita) return res.status(404).send('Cita no trobada');
-    res.send({ message: 'Cita eliminada correctament' });
+    res.send({ message: 'Cita esborrada' });
   } 
   catch (error) {
     res.status(500).send(error);
@@ -236,35 +224,4 @@ router.delete('/cita/:id', async (req, res) => {
 });
 
 module.exports = router;
-
-```
-
-
-index.js
-```
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-
-const app = express();
-
-app.use(bodyParser.json());
-
-mongoose.connect('mongodb://localhost:27017/hospital', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('Connected to MongoDB');
-})
-.catch((error) => {
-  console.error('Error connecting to MongoDB:', error);
-});
-
-const rutesHospital = require('./rutes/rutesHospital');
-app.use('/api', rutesHospital);
-
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
 ```
