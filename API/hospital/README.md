@@ -19,14 +19,14 @@ models/Pacient.js
 const mongoose = require('mongoose');
 
 const pacientSchema = new mongoose.Schema({
-  nom: String,
-  cognoms: String,
-  edat: Number,
-  sexe: String,
-  diagnosi: String,
+  dni: { type: String, unique: true, required: true },
+  nom: { type: String, required: true },
+  sexe: { type: String, required: true },
+  diagnosi: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Pacient', pacientSchema);
+
 ```
 
 models/Metge.js
@@ -34,12 +34,13 @@ models/Metge.js
 const mongoose = require('mongoose');
 
 const metgeSchema = new mongoose.Schema({
-  nom: String,
-  especialitat: String,
-  numero_licencia: String,
+  dni: {type: String, unique: true },
+  cognoms: { type: String, required: true },
+  especialitat: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Metge', metgeSchema);
+
 
 ```
 
@@ -48,13 +49,14 @@ models/Cita.js
 const mongoose = require('mongoose');
 
 const citaSchema = new mongoose.Schema({
-  pacient: { type: mongoose.Schema.Types.ObjectId, ref: 'Pacient' },
-  metge: { type: mongoose.Schema.Types.ObjectId, ref: 'Metge' },
-  data: Date,
-  motiu: String,
+  data: { type: Date, required: true },
+  dniPacient: { type: String, required: true },
+  dniMetge: { type: String, required: true },
+  motiu: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Cita', citaSchema);
+
 ```
 
 rutes/rutesHospital.js
@@ -79,6 +81,17 @@ router.post('/nouPacient', async (req, res) => {
   } 
   catch (error) {
     res.status(400).send(error);
+  }
+});
+
+router.get('/pacients', async (req, res) => {
+  try {
+    const pacients = await Pacient.find();
+    console.log(pacients);
+    res.send(pacients);
+  } 
+  catch (error) {
+    res.status(500).send(error);
   }
 });
 
@@ -130,6 +143,16 @@ router.post('/nouMetge', async (req, res) => {
   }
 });
 
+router.get('/metges', async (req, res) => {
+  try {
+    const metges = await Metge.find();
+    res.send(metges);
+  } 
+  catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 router.get('/metge/:dni', async (req, res) => {
   try {
     const metge = await Metge.findOne({ dni: req.params.dni });
@@ -166,23 +189,41 @@ router.delete('/metge/:dni', async (req, res) => {
 /// RUTES PER CITES ///
 router.post('/novaCita', async (req, res) => {
   try {
-    const cita = new Cita({
-      pacient: req.body.pacient,
-      metge: req.body.metge,
-      data: req.body.data,
-      motiu: req.body.motiu,
+    const { data, dniPacient, dniMetge, motiu } = req.body;
+
+    if (!dniPacient || !dniMetge || !data || !motiu) {
+      return res.status(400).send("Tots els camps són requerits.");
+    }
+
+    const pacient = await Pacient.findOne({ dni: dniPacient });
+    const metge = await Metge.findOne({ dni: dniMetge });
+
+    if (!pacient)  return res.status(404).send("DNI del pacient erroni.");
+    if (!metge)   return res.status(404).send("DNI del metge erroni.");
+
+    const novaCita = new Cita({
+      data,
+      dniPacient,
+      dniMetge,
+      motiu,
     });
-    await cita.save();
-    res.status(201).send(cita);
+
+    await novaCita.save();
+    res.status(201).send(novaCita);
   } 
+  
   catch (error) {
-    res.status(400).send(error);
+    console.error(error);
+    res.status(500).send({ message: 'Error al crear la cita', error });
   }
 });
 
+
 router.get('/cites', async (req, res) => {
   try {
-    const cites = await Cita.find().populate('pacient').populate('metge');
+    const cites = await Cita.find()
+      .populate('dniPacient', 'dni')  
+      .populate('dniMetge', 'dni');  
     res.send(cites);
   } 
   catch (error) {
@@ -201,16 +242,28 @@ router.get('/cita/:id', async (req, res) => {
   }
 });
 
-router.put('/cita/:id', async (req, res) => {
+router.put('/cita/:dni', async (req, res) => {
   try {
-    const cita = await Cita.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('pacient').populate('metge');
-    if (!cita) return res.status(404).send('Cita no trobada');
-    res.send(cita);
+    const { dni } = req.params;  
+    const { data, dniPacient, dniMetge, motiu } = req.body; 
+
+    const cita = await Cita.findOne({ dniPacient: dni });
+    if (!cita) return res.status(404).send("Cita no trobada.");
+    
+    cita.data = data || cita.data;
+    cita.dniPacient = dniPacient || cita.dniPacient;
+    cita.dniMetge = dniMetge || cita.dniMetge;
+    cita.motiu = motiu || cita.motiu;
+
+    await cita.save();
+    res.status(200).send(cita);
   } 
   catch (error) {
-    res.status(400).send(error);
+    console.error(error);
+    res.status(500).send({ message: 'Error en actualitzar la cita', error });
   }
 });
+
 
 router.delete('/cita/:id', async (req, res) => {
   try {
