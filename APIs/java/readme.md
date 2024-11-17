@@ -1,1 +1,1 @@
-Directori que conté APIs creades fent ús Java com a llenguatgue de programació.
+Directori que conté APIs creades fent ús de Java com a llenguatgue de programació.
