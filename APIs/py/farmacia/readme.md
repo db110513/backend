@@ -1,13 +1,31 @@
+Directori root:
 ```
 mkdir ...
 cd ...
+code .
 ```
 
+Crea un entorn virtual:
+```
+python -m venv env
+```
+
+Activa'l:
+
+Windows:
+```
+.\env\Scripts\activate
+```
+
+Linux:
+```
+source env/bin/activate
+```
 
 ```
 pip install flask
 flask
-pip install -r requirements.txt
+pip freeze > requirements.txt
 ```
 
 
