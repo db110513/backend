@@ -1,3 +1,8 @@
+Codi compilat:
+
+https://www.loom.com/share/cf944ad816c94f24969ce08765c009b9
+
+
 Directori root:
 ```
 mkdir ...
