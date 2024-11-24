@@ -8,6 +8,16 @@ https://www.loom.com/share/008ea00832834d92880c48cb28525b78
 npm init -y
 npm i express mongoose body-parser jsonwebtoken bcrypt nodemon
 ```
+new-item index.js
+
+mkdir models
+
+mkdir rutes
+
+new-item models/
+
+new-item models/
+
 
 package.json
 ```
