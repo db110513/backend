@@ -3,7 +3,7 @@ const router = express.Router();
 const Matricula = require('../models/Matricula');
 
 
-router.post('/', async (req, res) => {
+router.post('/crea', async (req, res) => {
   try {
     const matricula = new Matricula(req.body);
     await matricula.save();
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.get('/obteTotes', async (req, res) => {
   try {
     const matricules = await Matricula.find().populate('alumne assignatura');
     res.send(matricules);
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.put('/:id', async (req, res) => {
+router.put('/actualitza/:id', async (req, res) => {
     try {
         const matricula = await Matricula.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.send(matricula);
@@ -37,7 +37,7 @@ router.put('/:id', async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/elimina/:id', async (req, res) => {
   try {
     await Matricula.findByIdAndDelete(req.params.id);
     res.send({ message: 'Matrícula eliminada' });

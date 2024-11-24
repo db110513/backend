@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
 const cors = require('cors');
 
 app.use(express.json());
@@ -15,6 +17,8 @@ const alumnesRoutes = require('./rutes/alumnes');
 const assigaturesRoutes = require('./rutes/assigatures');
 const professorsRoutes = require('./rutes/professors');
 const matriculesRoutes = require('./rutes/matricules');
+
+app.use(bodyParser.json());
 
 app.use('/alumnes', alumnesRoutes);
 app.use('/assigatures', assigaturesRoutes);

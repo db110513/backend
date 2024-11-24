@@ -3,7 +3,7 @@ const router = express.Router();
 const Assignatura = require('../models/Assigatura');
 
 
-router.post('/', async (req, res) => {
+router.post('/crea', async (req, res) => {
   try {
     const assignatura = new Assignatura(req.body);
     await assignatura.save();
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.get('/obteTotes', async (req, res) => {
   try {
     const assignatures = await Assignatura.find().populate('professor');
     res.send(assignatures);
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.put('/:id', async (req, res) => {
+router.put('/actualitza/:id', async (req, res) => {
   try {
     const assignatura = await Assignatura.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.send(assignatura);
@@ -37,7 +37,7 @@ router.put('/:id', async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/elimina/:id', async (req, res) => {
   try {
     await Assignatura.findByIdAndDelete(req.params.id);
     res.send({ message: 'Assignatura eliminada' });

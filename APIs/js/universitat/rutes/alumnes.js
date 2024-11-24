@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Alumne = require('../models/Alumne');
 
-router.post('/', async (req, res) => {
+router.post('/crea', async (req, res) => {
   try {
     const alumne = new Alumne(req.body);
     await alumne.save();
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.get('/obteTots', async (req, res) => {
   try {
     const alumnes = await Alumne.find();
     res.send(alumnes);
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.put('/:dni', async (req, res) => {
+router.put('/actualitza/:dni', async (req, res) => {
     try {
         const alumne = await Alumne.findOneAndUpdate({ dni: req.params.dni }, req.body, { new: true });
         if (!alumne) {
@@ -38,7 +38,7 @@ router.put('/:dni', async (req, res) => {
     }
 });
   
-router.delete('/:dni', async (req, res) => {
+router.delete('/elimina/:dni', async (req, res) => {
     try {
         const alumne = await Alumne.findOneAndDelete({ dni: req.params.dni });
         if (!alumne) {

@@ -3,7 +3,7 @@ const router = express.Router();
 const Professor = require('../models/Professor');
 
 
-router.post('/', async (req, res) => {
+router.post('/crea', async (req, res) => {
   try {
     const professor = new Professor(req.body);
     await professor.save();
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.get('/obteTots', async (req, res) => {
   try {
     const professors = await Professor.find();
     res.send(professors);
@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
 
 
 
-router.put('/:dni', async (req, res) => {
+router.put('/actualitza/:dni', async (req, res) => {
     try {
         const professor = await Alumne.findOneAndUpdate({ dni: req.params.dni }, req.body, { new: true });
         if (!professor) {
@@ -40,7 +40,7 @@ router.put('/:dni', async (req, res) => {
     }
 });
   
-router.delete('/:dni', async (req, res) => {
+router.delete('/elimina/:dni', async (req, res) => {
     try {
         const professor = await Alumne.findOneAndDelete({ dni: req.params.dni });
         if (!professor) {
