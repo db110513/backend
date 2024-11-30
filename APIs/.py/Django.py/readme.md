@@ -1,1 +1,1 @@
-### sProjectes codificats en Python amb el framework Django.py
+### Projectes codificats en Python amb el framework Django.py
