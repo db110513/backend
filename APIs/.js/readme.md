@@ -1,2 +1,2 @@
 
-### Directori que conté projectes codificats en JavaScript fent ús dels seus frameworks.
+### Directori amb projectes codificats en JavaScript fent servir els seus frameworks.
