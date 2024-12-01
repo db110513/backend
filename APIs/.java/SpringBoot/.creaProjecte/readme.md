@@ -6,7 +6,7 @@ https://start.spring.io/
 
 ### 2. Crea:
 
-![image](https://github.com/user-attachments/assets/05e39d10-1125-40a1-8c4d-9e2d29a8e456))
+![image](https://github.com/user-attachments/assets/05e39d10-1125-40a1-8c4d-9e2d29a8e456)
 
 ### 3. Eclipse
 
