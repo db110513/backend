@@ -1,3 +1,4 @@
+```
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -78,3 +79,4 @@
     </ol>
 </body>
 </html>
+```
