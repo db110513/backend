@@ -1,4 +1,4 @@
-# Comparació entre @Controller i @RestController
+# @Controller - @RestController
 
 <table>
   <tr>
