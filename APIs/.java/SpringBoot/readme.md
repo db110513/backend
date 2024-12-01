@@ -1,1 +1,1 @@
-#### Directori que conté projectes fent servir el framework Spring Boot.
+### Pojectes fets codificats amb framework Spring Boot.
