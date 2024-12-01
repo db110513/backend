@@ -1,8 +1,10 @@
 # Crea projecte
 
-### 1. https://start.spring.io/
+### 1. Spring initialzr
 
-### 2. Metadata
+https://start.spring.io/
+
+### Crea:
 
 (![image](https://github.com/user-attachments/assets/05e39d10-1125-40a1-8c4d-9e2d29a8e456))
 
