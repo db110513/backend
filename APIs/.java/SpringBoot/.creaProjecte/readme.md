@@ -1,10 +1,12 @@
 # Crea projecte
 
-### 1. https://start.spring.io/
+### 1. Spring initialzr
 
-### 2. Metadata
+https://start.spring.io/
 
-![image](https://github.com/user-attachments/assets/edd6a905-ce2e-4841-9a14-5d3be9ea115c)
+### 2. Crea:
+
+![image](https://github.com/user-attachments/assets/05e39d10-1125-40a1-8c4d-9e2d29a8e456)
 
 ### 3. Eclipse
 
