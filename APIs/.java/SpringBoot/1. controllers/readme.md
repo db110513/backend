@@ -26,9 +26,9 @@ public class RestControllerr {
 #### 5.
 ```
 GetMapping("/")
-	public String api() {
-		return "Hola des de l'api!!";
-	}
+public String api() {
+       return "Hola des de l'api!!";
+}
 ```
 
 <table>
