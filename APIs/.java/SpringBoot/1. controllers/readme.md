@@ -11,15 +11,12 @@
 import org.springframework.web.bind.annotation.RestController;
 ```
 
-#### 2. @RestController
+#### 4. @RestController
 ```
 @RestController
 public class RestControllerr {
 	
 }
-
- 
-3.  
 ```
 <table>
   <tr>
