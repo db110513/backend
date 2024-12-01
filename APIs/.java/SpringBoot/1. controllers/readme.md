@@ -1,4 +1,26 @@
 
+### REST controllers
+
+#### 1. Crear package > rest
+
+#### 2. rest/RestControllerr.java
+
+#### 3. 
+
+```
+import org.springframework.web.bind.annotation.RestController;
+```
+
+#### 2. @RestController
+```
+@RestController
+public class RestControllerr {
+	
+}
+
+ 
+3.  
+```
 <table>
   <tr>
     <th>Característica</th>
