@@ -22,8 +22,8 @@
   </tr>
   <tr>
     <td>Resolució de vistes</td>
-    <td>Utilitza un resoledor de vistes</td>
-    <td>No utilitza resoledor de vistes</td>
+    <td>Sí</td>
+    <td>No</td>
   </tr>
   <tr>
     <td>Serialització</td>
