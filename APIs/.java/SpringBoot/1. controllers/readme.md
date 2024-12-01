@@ -15,7 +15,7 @@ rest/RestControllerr.java
 import org.springframework.web.bind.annotation.RestController;
 ```
 
-#### 4. @RestController
+#### 4.
 ```
 @RestController
 public class RestControllerr {
