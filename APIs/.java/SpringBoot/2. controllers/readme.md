@@ -22,3 +22,7 @@ Tornen un .html
 Get-NetTCPConnection -LocalPort 8080 | Select-Object -ExpandProperty OwningProcess
 ```
 
+#### Elimina procés:
+```
+Stop-Process -Id NUMEROID -Force
+```
