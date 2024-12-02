@@ -6,7 +6,6 @@ Tornen un .html
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-devtools</artifactId>
-    <version>3.4.0</version>
 </dependency>
 
 ```
