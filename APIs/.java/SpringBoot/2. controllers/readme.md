@@ -1,9 +1,7 @@
 # Controllers
 Tornen un .html
 
-#### Incorporar dependency a pom.xml
-
-#### Dependency: 
+#### pom.xml: 
 ```
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
 <dependency>
