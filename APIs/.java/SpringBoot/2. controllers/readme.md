@@ -21,14 +21,12 @@ Tornen un .html
 
 ```
 @Controller
-public class controller
-```
+public class controller {
 
-```
-@GetMapping("/")
-public String html() {
-    return "index";
-}
+    @GetMapping("/")
+    public String html() {
+        return "index";
+    }
 ```
 
 
