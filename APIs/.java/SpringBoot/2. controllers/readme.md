@@ -17,3 +17,8 @@ Tornen un .html
 
 #### resources | templates | *.html
 
+#### Port en ús?
+```
+Get-NetTCPConnection -LocalPort 8080 | Select-Object -ExpandProperty OwningProcess
+```
+
