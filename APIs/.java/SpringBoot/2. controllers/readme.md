@@ -7,6 +7,5 @@ Tornen un .html
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-devtools</artifactId>
 </dependency>
-
 ```
 #### File | Restart
