@@ -9,3 +9,6 @@ Tornen un .html
 </dependency>
 ```
 #### File | Restart
+
+#### resources | templates | *.html
+
