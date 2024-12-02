@@ -17,6 +17,21 @@ Tornen un .html
 
 #### resources | templates | *.html
 
+#### src | main | java | ... | nomPaquet | *.java
+
+```
+@Controller
+public class controller
+```
+
+```
+@GetMapping("/")
+public String html() {
+    return "index";
+}
+```
+
+
 #### Port en ús?
 ```
 Get-NetTCPConnection -LocalPort 8080 | Select-Object -ExpandProperty OwningProcess
