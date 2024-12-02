@@ -15,7 +15,7 @@ Tornen un .html
 ```
 #### File | Restart
 
-#### resources | templates | *.html
+#### resources | templates | index.html
 
 #### src | main | java | ... | nomPaquet | *.java
 
