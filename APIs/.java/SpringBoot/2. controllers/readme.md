@@ -37,5 +37,5 @@ Get-NetTCPConnection -LocalPort 8080 | Select-Object -ExpandProperty OwningProce
 
 #### Elimina procés:
 ```
-Stop-Process -Id NUMEROID -Force
+Stop-Process -Id NUMERO_ID -Force
 ```
